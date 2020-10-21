@@ -60,37 +60,45 @@ class Ball():
                 self.dx *= -1
                 player_1.increase_score()
 
-        
+
+# initialize all objects                
 ball = Ball()
 paddle_1 = Paddle(40, 'W', 'S')
 paddle_2 = Paddle(760, 'I', 'K')
 player_1 = Player(0,168)
 player_2 = Player(0, 568)
+
+# initialize global variables
+game_mode = "play"
+
 def setup():
     size(800,600)
 
 def draw():
-    background(0)
+    if game_mode == "play":
+        # draw playing screen
+        background(0)
+        
+        # Draw broken center line
+        for r in range(10,800,100):
+            rect(392,r,8,80)
+        
+        # Draw all ball and run related modules
+        ball.draw()
+        ball.move()
+        ball.bounce()
+        
+        # Draw paddles and run related modules
+        paddle_1.move()
+        paddle_2.move()
+        paddle_1.draw()
+        paddle_2.draw()
     
-    # Draw broken center line
-    for r in range(10,800,100):
-        rect(392,r,8,80)
-    
-    # Draw all ball and run related modules
-    ball.draw()
-    ball.move()
-    ball.bounce()
-    
-    # Draw paddles and run related modules
-    paddle_1.move()
-    paddle_2.move()
-    paddle_1.draw()
-    paddle_2.draw()
+        # draw scores
+        player_1.draw()
+        player_2.draw()
 
-    # draw scores
-    player_1.draw()
-    player_2.draw()
-
+        
 def keyPressed(self):
     if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
         paddle_1.pressed_up = True
