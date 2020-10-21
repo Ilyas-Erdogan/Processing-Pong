@@ -1,4 +1,3 @@
-
 class Paddle():
     def __init__(self, x, chosen_up_key, chosen_down_key):
         self.y = 300
@@ -12,21 +11,6 @@ class Paddle():
     def draw(self):
         rect(self.x, self.y, 15, 80)
     
-    def keyPressed(self):
-        if key == self.chosen_up_key or key == self.chosen_up_key.lower():        
-            self.pressed_up = True
-        elif key == self.chosen_down_key or key == self.chosen_down_key.lower():
-            self.pressed_down = True
-    def keyReleased(self):
-        if key == self.chosen_up_key or key == self.chosen_up_key.lower():        
-            self.pressed_up = False
-        elif key == self.chosen_down_key or key == self.chosen_down_key.lower():
-            self.pressed_down = False    
-    
-    def move_up():
-        self.y -= self.dy
-    def move_down():
-        self.y += self.dy
         
 class Ball():
     def __init__(self):
@@ -48,11 +32,12 @@ class Ball():
         if self.x < 11 or self.x > 789:
             self.dx *= -1
 
+
         
 ball = Ball()
 player_1 = Paddle(40, 'W', 'S')
 player_2 = Paddle(760, 'I', 'K')
-keyboard = [player_1, player_2]
+keyboard = [False, False]
 
 def setup():
     size(800,600)
@@ -65,13 +50,32 @@ def draw():
     
     player_1.draw()
     player_2.draw()
-    
-def keyPressed():
+
     if player_1.pressed_up == True:
-        player_1.move_up()
+        player_1.y -= player_1.dy
     if player_2.pressed_up == True:
-        player_2.move_up()
+        player_2.y -= player_2.dy
+    if player_1.pressed_down == True:
+        player_1.y += player_1.dy
     if player_2.pressed_down == True:
-        player_2.move_down()
-    if player_2.pressed_down == True:
-        player_2.move_down()
+        player_2.y += player_2.dy
+
+def keyPressed(self):
+    if key == player_1.chosen_up_key or key == player_1.chosen_up_key.lower():        
+        player_1.pressed_up = True
+    if key == player_1.chosen_down_key or key == player_1.chosen_down_key.lower():
+        player_1.pressed_down = True
+    if key == player_2.chosen_up_key or key == player_2.chosen_up_key.lower():        
+        player_2.pressed_up = True
+    if key == player_2.chosen_down_key or key == player_2.chosen_down_key.lower():
+        player_2.pressed_down = True
+        
+def keyReleased(self):
+    if key == player_1.chosen_up_key or key == player_1.chosen_up_key.lower():        
+        player_1.pressed_up = False
+    if key == player_1.chosen_down_key or key == player_1.chosen_down_key.lower():
+        player_1.pressed_down = False
+    if key == player_2.chosen_up_key or key == player_2.chosen_up_key.lower():        
+        player_2.pressed_up = False
+    if key == player_2.chosen_down_key or key == player_2.chosen_down_key.lower():
+        player_2.pressed_down = False
