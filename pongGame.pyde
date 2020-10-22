@@ -1,17 +1,22 @@
+# classes
 class Player():
     def __init__(self, score, x):
+        # initialize variable
         self.score = score
         self.x = x
     
     def draw(self):
+        # draw number of points according to given x value
         textSize(32)
         text(self.score,self.x,32)
     
     def increase_score(self):
+        # increase score
         self.score += 1
     
 class Paddle():
     def __init__(self, x, chosen_up_key, chosen_down_key):
+        # initiazlie variables
         self.y = 300
         self.x = x
         self.dy = 2
@@ -21,9 +26,11 @@ class Paddle():
         self.pressed_down = False
     
     def draw(self):
+        # draw paddle
         rect(self.x, self.y, 15, 80)
     
     def move(self):
+        # move paddle accordingly to set values for keyPressed
         if paddle_1.pressed_up == True:
             paddle_1.y -= paddle_1.dy
         if paddle_2.pressed_up == True:
@@ -35,30 +42,36 @@ class Paddle():
         
 class Ball():
     def __init__(self):
+        # initialize variables
         self.x = 400
         self.y = 300
         self.dx = 2
         self.dy = -2
     
     def draw(self):
+        # draw circle
         circle(self.x,self.y,22)
         
     def move(self):
+        # add to x and y values of ball to make it move
         self.x += self.dx
         self.y += self.dy
     
     def bounce(self):
+        # checks if ball is hitting top and bottom boundaries
         if self.y > 589 or self.y < 11:
             self.dy *= -1
         # Check if touching right paddle and bounce off
-        if self.x > 748:
-            if self.y < paddle_2.y + 80 and self.y > paddle_2.y:
+        if self.x > paddle_2.x - 11:
+            if self.y <= paddle_2.y + 81 and self.y >= paddle_2.y - 1:
                 self.dx *= -1 
-                player_2.increase_score()
-        if self.x < 67:
-            if self.y < paddle_1.y + 80 and self.y > paddle_1.y:
+                player_2.increase_score() # increase score of player 1
+        # Check if touching left paddle and bounce off                
+        if self.x < paddle_1.x + 26:
+            print(self.x, paddle_1.x + 26)
+            if self.y <= paddle_1.y + 81 and self.y >= paddle_1.y - 1:
                 self.dx *= -1
-                player_1.increase_score()
+                player_1.increase_score() # increase score of player 1
 
 
 # initialize all objects                
@@ -71,6 +84,7 @@ player_2 = Player(0, 568)
 # initialize global variables
 game_mode = "play"
 
+# functions
 def setup():
     size(800,600)
 
