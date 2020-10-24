@@ -5,4 +5,5 @@
 ### TODO for version 1.2:
 - [ ] Add a home screen and instruction screen
 - [ ] Add coloured themes
+- [ ] Make buttons that change colour when hovered over
 
