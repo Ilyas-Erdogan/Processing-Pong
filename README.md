@@ -4,7 +4,7 @@
 ~~- [x] Fix ball bouncing behind paddle~~
 ### TODO for version 1.3:
 ~~- [x] Add a home screen and instruction screen~~
-- [ ] Add coloured themes
+- [x] Add coloured themes
 - [ ] Make buttons that change colour when hovered over
 - [ ] Add COM player
 
