@@ -89,16 +89,45 @@ class Ball():
         # resets the balls position
         self.x, self.y = 400, 300
 
+class Button():
+    def __init__(self, x, y, type, txt):
+        self.x = x
+        self.y = y
+        self.type = type
+        self.txt = txt 
+    
+    def draw(self):
+        rectMode(CENTER)
+        textAlign(CENTER, CENTER)
+        
+        if self.type == "thick":
+            fill(255)
+            rect(self.x, self.y, 100, 50, 4)
+            fill(0)
+            text(self.txt, self.x, self.y)
+        elif self.type == "thin":
+            fill(255)
+            rect(self.x, self.y, 220, 25, 4)
+            fill(0)
+            text(self.txt, self.x, self.y)
+    
+        
 
 # initialize all objects                
 ball = Ball()
-paddle_1 = Paddle(40, 'W', 'S')
+paddle_1 = Paddle(40, 'W', 'S',)
 paddle_2 = Paddle(760, 'I', 'K')
 player_1 = Player(0,168)
 player_2 = Player(0, 568)
+play_button = Button(330, 300, "thick", "Play")
+game_mode_button = Button(450, 300, "thick", "Single Player")
+theme_button = Button(390, 350, "thin", "Theme")
+instructions_button = Button(390, 380, "thin", "Instructions")
 
 # initialize global variables
-game_mode = "play"
+mode = "single-player"
+theme = "classic"
+screen = "home-screen"
 
 # functions
 def setup():
@@ -106,47 +135,96 @@ def setup():
 
 
 def draw():
-    if game_mode == "play":
-        # draw playing screen
+    if theme == "classic":
+        # sets theme to classic
         background(0)
-        
-        # Draw broken center line
-        for r in range(10,800,100):
-            rect(392,r,8,80)
-        
-        # Draw all ball and run related modules
-        ball.draw()
-        ball.move()
-        ball.bounce()
-        
-        # Draw paddles and run related modules
-        paddle_1.move()
-        paddle_2.move()
-        paddle_1.draw()
-        paddle_2.draw()
+        fill(255)
+        stroke(255)
     
-        # draw scores
-        player_1.draw()
-        player_2.draw()
+    elif theme == "jungle":
+        # set theme to jungle
+        background(19, 94, 70)
+        fill(182, 123, 101)
+        stroke(182, 123, 101)
 
         
-def keyPressed(self):
-    if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
-        paddle_1.pressed_up = True
-    if key == paddle_1.chosen_down_key or key == paddle_1.chosen_down_key.lower():
-        paddle_1.pressed_down = True
-    if key == paddle_2.chosen_up_key or key == paddle_2.chosen_up_key.lower():        
-        paddle_2.pressed_up = True
-    if key == paddle_2.chosen_down_key or key == paddle_2.chosen_down_key.lower():
-        paddle_2.pressed_down = True
+    if screen == "home-screen":
+        # displays home screen
+        
+        # play button
+        play_button.draw()
+        
+        # game mode button
+        game_mode_button.draw()
+        
+        # theme button
+        theme_button.draw()
+        
+        # instructions button
+        instructions_button.draw()
+        
+    if screen == "play":
+        # start single player game
+        if mode == "single-player":
+            # draw playing screen
+
+            # Draw broken center line
+            for r in range(10,800,100):
+                rect(392,r,8,80)
+            
+            # Draw all ball and run related modules
+            ball.draw()
+            ball.move()
+            ball.bounce()
+            
+            # Draw paddles and run related modules
+            paddle_1.move()
+            paddle_2.move()
+            paddle_1.draw()
+            paddle_2.draw()
+        
+            # draw scores
+            player_1.draw()
+            player_2.draw()
+    
+        
+def keyPressed():
+    if screen == "play":     
+        if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
+            paddle_1.pressed_up = True
+        if key == paddle_1.chosen_down_key or key == paddle_1.chosen_down_key.lower():
+            paddle_1.pressed_down = True
+        if key == paddle_2.chosen_up_key or key == paddle_2.chosen_up_key.lower():        
+            paddle_2.pressed_up = True
+        if key == paddle_2.chosen_down_key or key == paddle_2.chosen_down_key.lower():
+            paddle_2.pressed_down = True
 
                 
-def keyReleased(self):
-    if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
-        paddle_1.pressed_up = False
-    if key == paddle_1.chosen_down_key or key == paddle_1.chosen_down_key.lower():
-        paddle_1.pressed_down = False
-    if key == paddle_2.chosen_up_key or key == paddle_2.chosen_up_key.lower():        
-        paddle_2.pressed_up = False
-    if key == paddle_2.chosen_down_key or key == paddle_2.chosen_down_key.lower():
-        paddle_2.pressed_down = False
+def keyReleased():
+    if screen == "play":
+        if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
+            paddle_1.pressed_up = False
+        if key == paddle_1.chosen_down_key or key == paddle_1.chosen_down_key.lower():
+            paddle_1.pressed_down = False
+        if key == paddle_2.chosen_up_key or key == paddle_2.chosen_up_key.lower():        
+            paddle_2.pressed_up = False
+        if key == paddle_2.chosen_down_key or key == paddle_2.chosen_down_key.lower():
+            paddle_2.pressed_down = False
+
+def mousePressed():
+    global screen, mode, theme
+    if screen == "home-screen":
+        if (mouseX < play_button.x + 50 and mouseX > play_button.x - 50) and (mouseY < play_button.y + 25 and mouseY > play_button.y - 25):
+            screen = "play"
+        elif (mouseX < game_mode_button.x + 50 and mouseX > game_mode_button.x - 50) and (mouseY < game_mode_button.y + 25 and mouseY > game_mode_button.y - 25):
+            if mode == "single-player":
+                mode = "multiplayer"
+            elif mode == "multiplayer":
+                mode = "single-player"
+        elif (mouseX < instructions_button.x + 110 and mouseX > instructions_button.x - 100) and (mouseY < instructions_button.y + 12.5 and mouseY > instructions_button.y - 12.5):
+            screen = "instructions"
+        elif (mouseX < theme_button.x + 110 and mouseX > theme_button.x - 100) and (mouseY < theme_button.y + 12.5 and mouseY > theme_button.y - 12.5):
+            if theme == "classic":
+                theme = "jungle"
+            elif theme == "jungle":
+                theme = "classic"
