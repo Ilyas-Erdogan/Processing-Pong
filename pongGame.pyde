@@ -99,16 +99,36 @@ class Button():
     def draw(self):
         rectMode(CENTER)
         textAlign(CENTER, CENTER)
-        
+
         if self.type == "thick":
-            fill(255)
+            if theme == "dark":
+                fill(255)
+            elif theme == "light":
+                fill(0)
+            elif theme == "jungle":
+                fill(182, 123, 101)                
             rect(self.x, self.y, 100, 50, 4)
-            fill(0)
+            if theme == "dark":
+                fill(0)
+            elif theme == "light":
+                fill(255)
+            elif theme == "jungle":
+                fill(255)
             text(self.txt, self.x, self.y)
         elif self.type == "thin":
-            fill(255)
+            if theme == "dark":
+                fill(255)
+            elif theme == "light":
+                fill(0)
+            elif theme == "jungle":
+                fill(182, 123, 101)
             rect(self.x, self.y, 220, 25, 4)
-            fill(0)
+            if theme == "dark":
+                fill(0)
+            elif theme == "light":
+                fill(255)
+            elif theme == "jungle":
+                fill(255)
             text(self.txt, self.x, self.y)
     
         
@@ -126,7 +146,7 @@ instructions_button = Button(390, 380, "thin", "Instructions")
 
 # initialize global variables
 mode = "single-player"
-theme = "classic"
+theme = "dark"
 screen = "home-screen"
 
 # functions
@@ -135,12 +155,16 @@ def setup():
 
 
 def draw():
-    if theme == "classic":
-        # sets theme to classic
+    if theme == "dark":
+        # sets theme to dark
         background(0)
         fill(255)
         stroke(255)
-    
+    elif theme == "light":
+        # set theme to light
+        background(255)
+        fill(0)
+        stroke(0)
     elif theme == "jungle":
         # set theme to jungle
         background(19, 94, 70)
@@ -224,7 +248,9 @@ def mousePressed():
         elif (mouseX < instructions_button.x + 110 and mouseX > instructions_button.x - 100) and (mouseY < instructions_button.y + 12.5 and mouseY > instructions_button.y - 12.5):
             screen = "instructions"
         elif (mouseX < theme_button.x + 110 and mouseX > theme_button.x - 100) and (mouseY < theme_button.y + 12.5 and mouseY > theme_button.y - 12.5):
-            if theme == "classic":
+            if theme == "dark":
+                theme = "light"
+            elif theme == "light":
                 theme = "jungle"
             elif theme == "jungle":
-                theme = "classic"
+                theme = "dark"
