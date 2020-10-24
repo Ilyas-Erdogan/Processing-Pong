@@ -28,6 +28,7 @@ class Paddle():
     
     def draw(self):
         # draw paddle
+        rectMode(CORNER)
         rect(self.x, self.y, 15, 80)
     
     def move(self):
@@ -53,7 +54,6 @@ class Ball():
     def draw(self):
         # draw circle
         circle(self.x,self.y,22)
-        
     def move(self):
         # add to x and y values of ball to make it move
         self.x += self.dx
@@ -65,7 +65,7 @@ class Ball():
             self.dy *= -1
             
         # Check if touching right paddle and bounce off
-        if self.x > paddle_2.x - 11:
+        if self.x + 11 > paddle_2.x:
             if self.y <= paddle_2.y + 80 and self.y >= paddle_2.y:
                 self.dx *= -1 
                     
@@ -78,6 +78,7 @@ class Ball():
         if self.x + 11 > paddle_2.x + 1:
             player_1.increase_score()
             self.reset()
+    
         
         # check if past left paddle
         if self.x - 11 < paddle_1.x - 1:
@@ -88,6 +89,8 @@ class Ball():
     def reset(self):
         # resets the balls position
         self.x, self.y = 400, 300
+            
+            
 
 class Button():
     def __init__(self, x, y, type, txt):
@@ -101,35 +104,51 @@ class Button():
         textAlign(CENTER, CENTER)
 
         if self.type == "thick":
+            # set fill color of rectangle according to theme
             if theme == "dark":
                 fill(255)
             elif theme == "light":
                 fill(0)
-            elif theme == "jungle":
-                fill(182, 123, 101)                
-            rect(self.x, self.y, 100, 50, 4)
-            if theme == "dark":
-                fill(0)
-            elif theme == "light":
-                fill(255)
-            elif theme == "jungle":
-                fill(255)
-            text(self.txt, self.x, self.y)
-        elif self.type == "thin":
-            if theme == "dark":
-                fill(255)
-            elif theme == "light":
-                fill(0)
-            elif theme == "jungle":
+            elif theme == "tennis-court":
                 fill(182, 123, 101)
-            rect(self.x, self.y, 220, 25, 4)
+            
+            # draw rectangle                
+            rect(self.x, self.y, 100, 50, 4)
+            
+            # set color of text according to theme
             if theme == "dark":
                 fill(0)
             elif theme == "light":
                 fill(255)
-            elif theme == "jungle":
+            elif theme == "tennis-court":
                 fill(255)
+                
+            # draw text
             text(self.txt, self.x, self.y)
+            
+        elif self.type == "thin":
+            # set fill color of rectangle according to theme
+            if theme == "dark":
+                fill(255)
+            elif theme == "light":
+                fill(0)
+            elif theme == "tennis-court":
+                fill(182, 123, 101)
+            
+            # draw thin rectangle
+            rect(self.x, self.y, 220, 25, 4)
+            
+            # set color of text according to theme
+            if theme == "dark":
+                fill(0)
+            elif theme == "light":
+                fill(255)
+            elif theme == "tennis-court":
+                fill(255)
+                
+            # draw text
+            text(self.txt, self.x, self.y)
+            
     
         
 
@@ -165,11 +184,11 @@ def draw():
         background(255)
         fill(0)
         stroke(0)
-    elif theme == "jungle":
-        # set theme to jungle
+    elif theme == "tennis-court":
+        # set theme to tennis-court
         background(19, 94, 70)
         fill(182, 123, 101)
-        stroke(182, 123, 101)
+        stroke(0,255,255)
 
         
     if screen == "home-screen":
@@ -191,11 +210,15 @@ def draw():
         # start single player game
         if mode == "single-player":
             # draw playing screen
-
-            # Draw broken center line
-            for r in range(10,800,100):
-                rect(392,r,8,80)
             
+            if theme == "tennis-court":
+            # Draw broken center line
+                for r in range(10,800,100):
+                    fill(255)
+                    rect(392,r,8,80)
+            else:
+                for r in range(10,800,100):
+                    rect(392,r,8,80)
             # Draw all ball and run related modules
             ball.draw()
             ball.move()
@@ -251,6 +274,6 @@ def mousePressed():
             if theme == "dark":
                 theme = "light"
             elif theme == "light":
-                theme = "jungle"
-            elif theme == "jungle":
+                theme = "tennis-court"
+            elif theme == "tennis-court":
                 theme = "dark"
