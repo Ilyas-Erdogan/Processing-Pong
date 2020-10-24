@@ -5,6 +5,6 @@
 ### TODO:
 - [x] Add a home screen and instruction screen
 - [x] Add coloured themes
-- [ ] Make buttons that change colour when hovered over
+- [ ] ~~Make buttons that change colour when hovered over~~
 - [ ] Add COM player
 
