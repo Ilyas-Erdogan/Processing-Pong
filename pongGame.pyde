@@ -34,13 +34,17 @@ class Paddle():
     def move(self):
         # move paddle accordingly to set values for keyPressed
         if paddle_1.pressed_up == True:
-            paddle_1.y -= paddle_1.dy
+            if paddle_1.y != 0:
+                paddle_1.y -= paddle_1.dy
         if paddle_2.pressed_up == True:
-            paddle_2.y -= paddle_2.dy
+            if paddle_2.y != 0:
+                paddle_2.y -= paddle_2.dy
         if paddle_1.pressed_down == True:
-            paddle_1.y += paddle_1.dy
+            if paddle_1.y + 80 != 600:
+                paddle_1.y += paddle_1.dy
         if paddle_2.pressed_down == True:
-            paddle_2.y += paddle_2.dy
+            if paddle_2.y + 80 != 600:
+                paddle_2.y += paddle_2.dy
 
                 
 class Ball():
@@ -78,17 +82,21 @@ class Ball():
         if self.x + 11 > paddle_2.x + 1:
             player_1.increase_score()
             self.reset()
-    
+            self.random_dir()
         
         # check if past left paddle
         if self.x - 11 < paddle_1.x - 1:
             player_2.increase_score()
             self.reset()
-            
-    
+            self.random_dir()
+        
     def reset(self):
         # resets the balls position
         self.x, self.y = 400, 300
+    
+    def random_dir(self):
+        # set a random y direction for ball to go in
+        self.dy = random(-3,3)
             
             
 
