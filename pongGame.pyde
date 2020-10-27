@@ -100,7 +100,7 @@ class COM_Paddle():
         self.y = 300
         self.x = x
         self.dy = 2 
-        self.rand = random(-80,80) 
+        self.rand = random(0,80) 
         
     def draw(self):
         if theme == "tennis-court":
@@ -276,6 +276,7 @@ def setup():
 
 
 def draw():
+    global screen
     if theme == "dark":
         # sets theme to dark
         title = loadImage("title-black.png")
@@ -361,17 +362,33 @@ def draw():
         if mode == "single-player":
             paddle_2.move()
             paddle_2.draw()            
-        
+            
         elif mode == "multiplayer":
             com_paddle.draw()
             com_paddle.bounce()
             com_paddle.move()
-            #com_paddle.move()
+        
+        if player_1.score == 2:
+                screen = "winner-player-1"
+        if player_2.score == 2:
+                screen  = "winner-player-2"
+        
     
     if screen == "instructions":
         instructions.draw()
         instructions.move()
         instructions.bounce()
+        
+    if screen == "winner-player-1":
+        textMode(CENTER)
+        textSize(32)
+        textAlign(CENTER,CENTER)
+        text("Player 1 won!", 400, 300)
+    elif screen == "winner-player-2":
+        textMode(CENTER)
+        textSize(32)
+        textAlign(CENTER,CENTER)
+        text("Player 2 won!", 400, 300) 
         
 def keyPressed():
     global screen
@@ -393,6 +410,7 @@ def keyPressed():
                 
 def keyReleased():
     if screen == "play":
+        # checks if the players have 
         if key == paddle_1.chosen_up_key or key == paddle_1.chosen_up_key.lower():        
             paddle_1.pressed_up = False
         if key == paddle_1.chosen_down_key or key == paddle_1.chosen_down_key.lower():
@@ -405,15 +423,19 @@ def keyReleased():
 def mousePressed():
     global screen, mode, theme
     if screen == "home-screen":
+        # checks if play button was pressed
         if (mouseX < play_button.x + 50 and mouseX > play_button.x - 50) and (mouseY < play_button.y + 25 and mouseY > play_button.y - 25):
             screen = "play"
+        # switches multiplayer to singleplayer ans singleplayer to multiplayer
         elif (mouseX < game_mode_button.x + 50 and mouseX > game_mode_button.x - 50) and (mouseY < game_mode_button.y + 25 and mouseY > game_mode_button.y - 25):
             if mode == "single-player":
                 mode = "multiplayer"
             elif mode == "multiplayer":
                 mode = "single-player"
+        # switches to instructions screen
         elif (mouseX < instructions_button.x + 110 and mouseX > instructions_button.x - 100) and (mouseY < instructions_button.y + 12.5 and mouseY > instructions_button.y - 12.5):
             screen = "instructions"
+        # switches theme of game
         elif (mouseX < theme_button.x + 110 and mouseX > theme_button.x - 100) and (mouseY < theme_button.y + 12.5 and mouseY > theme_button.y - 12.5):
             if theme == "dark":
                 theme = "light"
