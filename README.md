@@ -8,3 +8,6 @@
 - [ ] ~~Make buttons that change colour when hovered over~~
 - [x] Add COM player
 
+## Class Diagram and Screen Sketches
+
+
