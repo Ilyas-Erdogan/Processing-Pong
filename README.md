@@ -9,4 +9,4 @@
 - [x] Add COM player
 
 ## Class Diagram and Screen Sketches
-![alt text](https://github.com/Ilyas-Erdogan/Processing-Ponge/blob/main/Class_Diargrams_and_Sketches.jpg?raw=true)
+![View Here](https://github.com/Ilyas-Erdogan/Processing-Ponge/blob/main/Class_Diargrams_and_Sketches.png?raw=true)
